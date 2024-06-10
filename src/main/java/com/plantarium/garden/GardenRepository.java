@@ -1,0 +1,14 @@
+package com.plantarium.garden;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface GardenRepository extends JpaRepository<Garden, Integer> {
+    @Query(value = "SELECT * FROM garden where garden.user_id = ?1", nativeQuery = true)
+    List<Garden> findAllByUserId(Long id);
+}

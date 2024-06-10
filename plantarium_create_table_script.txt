@@ -1,0 +1,43 @@
+CREATE TABLE user_ (
+	user_id serial primary key,
+	first_name varchar(20),
+	last_name varchar(50),
+	phone_number varchar(30),
+	email varchar(50),
+	password_ varchar(100),
+	already_added_garden boolean,
+	created_with_google boolean,
+);
+
+CREATE TABLE garden(
+	garden_id serial primary key,
+	garden_name varchar(20),
+	garden_address varchar(100),
+	garden_latitude varchar(100),
+	garden_longitude varchar(100),
+	garden_profile_photo_url varchar(100),
+	user_id int,
+	foreign key(user_id) references user_(user_id)
+);
+
+CREATE TABLE plant(
+	plant_id serial primary key,
+	plant_name varchar(30),
+	plant_notes text,
+	watering_period interval,
+	last_watered timestamp,
+	next_watering timestamp,
+	water_volume_ml float,
+	garden_id int,
+	plant_profile_photo_url varchar(100),
+	foreign key (garden_id) references garden(garden_id)
+);
+
+CREATE TABLE photo(
+	photo_id serial primary key,
+	photo_url varchar(100),
+	garden_id int,
+	plant_id int,
+	foreign key (garden_id) references garden(garden_id),
+	foreign key (plant_id) references plant(plant_id)
+);
